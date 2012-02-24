@@ -1,7 +1,7 @@
 Mingler
 =======
 
-Mingler is an easy-to-use easy-to-install concatenation tool which
+Mingler is an easy-to-use easy-to-install concatenation tool which's
 syntax is inspired by Sprockets and Juicer. Mingler doesn't try to
 be anything else than what it is: A tool for concatenating (merging) and
 minifying files. This makes it ideal to include in your project's build-tools,
