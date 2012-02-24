@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+var mingler = require('../lib/mingler.js'),
+    path    = require('path'),
+    fs      = require('fs'),
+    ugly    = require('uglify-js');
+
+var MingleCommand = {
+  help: [ 'usage: mingler [--minify | --help] <file> [<file> ...]',
+          '',
+          '  mingler is a commandline tool for concatenating JavaScript',
+          '  source files, inspired by great tools such as Sprockets',
+          '  and Juicer.',
+          '',
+          '  Options:',
+          '    --minify\tMinifies the specified file. Requires uglify-js',
+          '    --help\tPrints this help text'].join('\n'),
+
+  mingle: function(file) {
+    mingler.on('complete', function(concatenation) {
+      if(MingleCommand.minify) {
+        var jsp, pro, ast, ratio, compressed;
+
+        jsp = ugly.parser;
+        pro = ugly.uglify;
+
+        ast = jsp.parse(concatenation);
+        ast = pro.ast_mangle(ast);
+        ast = pro.ast_squeeze(ast);
+
+        concatenation = pro.gen_code(ast);
+      }
+
+      process.stdout.write(concatenation);
+    });
+
+    mingler.on('warning', function(warning) {
+      console.warn(' - [WARNING]\t' + warning);
+    });
+
+    mingler.on('error', function(error) {
+      console.error(' - [ERROR]\t' + error);
+    });
+
+    mingler.mingle(file);
+  },
+
+  minify: false
+};
+
+var arguments = process.argv.slice(2);
+
+if(arguments.length == 0) {
+  console.log(MingleCommand.help);
+} else {
+  for(var i = 0, ii = arguments.length; i < ii; i++) {
+    if(i == 0 && arguments[i] == '--minify') {
+      MingleCommand.minify = true; 
+    } else if(i == 0 && arguments[i] == '--help') {
+      console.log(MingleCommand.help);
+    } else {
+      MingleCommand.mingle(arguments[i]);
+    }
+  }
+}

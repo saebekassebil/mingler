@@ -1,0 +1,13 @@
+{
+  "name": "mingler",
+  "description": "Sprockets inspired JavaScript concatenater",
+  "version": "1.0.0",
+  "author": "Saebekassebil <saebekassebil@gmail.com>",
+  "keywords": ["mingler", "concatenation", "sprockets", "juicer", "minify", "merge"],
+  "dependencies": {
+    "uglify-js": "*"
+  },
+  "repository": "git://github.com/saebekassebil/mingler",
+  "main": "./lib/mingler.js",
+  "bin": { "mingler": "./bin/mingler" }
+}
