@@ -1,7 +1,7 @@
 {
   "name": "mingler",
   "description": "Sprockets inspired JavaScript concatenater",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Saebekassebil <saebekassebil@gmail.com>",
   "keywords": ["mingler", "concatenation", "sprockets", "juicer", "minify", "merge"],
   "dependencies": {
